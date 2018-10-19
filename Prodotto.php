@@ -13,7 +13,7 @@ class Prodotto{
   }
 
   public function getVolume(){
-    return $this->$lunghezza*$this->altezza*$this->$profondita;
+    return $this->lunghezza*$this->altezza*$this->profondita;
   }
 
 }
