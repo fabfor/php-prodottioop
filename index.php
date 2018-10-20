@@ -1,15 +1,26 @@
 <?php
-  require 'Prodotto.php';
-  require 'ProdottoDeperibile.php';
+  require_once 'Prodotto.php';
+  require_once 'Fattorino.php';
+  require_once 'ProdottoDeperibile.php';
+  require_once 'ProdottoUrgente.php';
+  require_once 'TooLateDeliveryException.php';
 
-  $p = new Prodotto(30,20,30);
 
-  $p->getVolume();
+  $f = new Fattorino("Fabio","Forg");
+  $f->save();
 
-  $pd = new ProdottoDeperibile(30,20,30);
+  $pd = new ProdottoUrgente(30,20,30, new DateTime('2018-01-02 23:00:00'));
+  $pd->setFattorino($f);
+  try{
+    $pd->consegna();
+  }
+  catch(TooLateDeliveryException $e){
+    echo ("Pacco consegnato troppo tardi.");
+    echo ("<br>");
+    echo ("Il fattorino ".$pd->getFattorino()->nome." verrà multato");
+    echo ("<br>");
+    echo ("<br>");
+  }
 
-  $pd->scadenza = new \DateTime('2100-01-01');
-
-  var_dump($pd->isExpired());
-
+  echo '<pre>' . var_export($pd, true) . '</pre>';
 ?>

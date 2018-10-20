@@ -1,4 +1,5 @@
 <?php
+
 class ProdottoDeperibile extends Prodotto{
   public $scadenza;
 
